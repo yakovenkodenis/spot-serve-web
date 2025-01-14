@@ -5,7 +5,6 @@ const path = require('path');
 // Directory to serve files from
 const DIRECTORY = path.join(__dirname, 'sites');
 
-// Function to determine the MIME type based on file extension
 function getMimeType(filePath) {
   const ext = path.extname(filePath).toLowerCase();
   const mimeTypes = {
@@ -20,7 +19,6 @@ function getMimeType(filePath) {
   return mimeTypes[ext] || 'application/octet-stream';
 }
 
-// Function to read files from the directory and prepare the content map
 function readFilesFromDirectory(directory) {
   const files = {};
   const fileList = fs.readdirSync(directory);
@@ -46,7 +44,6 @@ function readFilesFromDirectory(directory) {
   return files;
 }
 
-// Create the HTTP server
 const server = http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');

@@ -1,24 +1,34 @@
-// // service-worker.js
-// const resourceMap = new Map();
+const CACHE_NAME = 'website-cache';
 
-// // Listen for the message from the main app to initialize resource mappings
-// self.addEventListener('message', (event) => {
-//   if (event.data.type === 'INITIALIZE_RESOURCES') {
-//     event.data.resources.forEach((resource, path) => {
-//       // const blob = new Blob([resource.content], { type: resource.mimeType });
-//       // const blobUrl = URL.createObjectURL(blob);
-//       resourceMap.set(path, path);
-//     });
-//   }
-// });
+self.addEventListener('install', (event) => {
+  console.log('Service Worker installed');
+  // Force the waiting service worker to become the active one
+  event.waitUntil(self.skipWaiting());
+});
 
-// // Intercept all fetch requests
-// self.addEventListener('fetch', (event) => {
-//   console.log({ resourceMap, event: event.request.url });
-//   const url = new URL(event.request.url);
-//   const path = url.pathname;
+self.addEventListener('activate', (event) => {
+  console.log('Service Worker activated');
+  event.waitUntil(self.clients.claim());
+});
 
-//   if (resourceMap.has(path)) {
-//     event.respondWith(fetch(resourceMap.get(path)));
-//   }
-// });
+self.addEventListener('fetch', (event) => {
+  const url = new URL(event.request.url);
+
+  // Ignore non-GET requests or requests outside the cached scope
+  if (event.request.method !== 'GET') return;
+
+  event.respondWith(
+    caches.open(CACHE_NAME).then((cache) =>
+      cache.match(event.request).then((cachedResponse) => {
+        if (cachedResponse) {
+          console.log(`Serving from cache: ${url.pathname}`);
+          return cachedResponse;
+        }
+        console.log(`Fetching from network: ${url.pathname}`);
+        return fetch(event.request).then((networkResponse) => {
+          return networkResponse;
+        });
+      })
+    )
+  );
+});

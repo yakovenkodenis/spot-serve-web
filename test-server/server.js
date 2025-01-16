@@ -19,28 +19,40 @@ function getMimeType(filePath) {
   return mimeTypes[ext] || 'application/octet-stream';
 }
 
-function readFilesFromDirectory(directory) {
+function readFilesFromDirectory(directory, baseDirectory = directory) {
   const files = {};
-  const fileList = fs.readdirSync(directory);
+  const entries = fs.readdirSync(directory);
+  
+  entries.forEach((entry) => {
 
-  fileList.forEach((fileName) => {
-    const filePath = path.join(directory, fileName);
-    const fileStat = fs.statSync(filePath);
+    if (entry.endsWith('.gz')) return;
 
-    if (fileStat.isFile()) {
-      const mimeType = getMimeType(filePath);
+    const fullPath = path.join(directory, entry);
+    const stats = fs.statSync(fullPath);
+    
+    if (stats.isDirectory()) {
+      Object.assign(
+        files, 
+        readFilesFromDirectory(fullPath, baseDirectory)
+      );
+    } else {
+      const mimeType = getMimeType(fullPath);
       const isTextFile = mimeType.startsWith('text/') || mimeType === 'application/javascript';
       const encoding = isTextFile ? 'utf8' : 'base64';
-      const fileContent = fs.readFileSync(filePath, { encoding });
-
-      files[fileName] = {
+      const fileContent = fs.readFileSync(fullPath, { encoding });
+      
+      const relativePath = path.relative(baseDirectory, fullPath);
+      
+      const normalizedPath = relativePath.split(path.sep).join('/');
+      
+      files[normalizedPath] = {
         content: fileContent,
         mimeType,
         encoding,
       };
     }
   });
-
+  
   return files;
 }
 
@@ -51,7 +63,7 @@ const server = http.createServer((req, res) => {
 
   if (req.url === '/files' && req.method === 'GET') {
     try {
-      const files = readFilesFromDirectory(DIRECTORY + '/age-calculator');
+      const files = readFilesFromDirectory(DIRECTORY + '/qn-solutions');
 
       res.writeHead(200, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(files));
@@ -66,7 +78,7 @@ const server = http.createServer((req, res) => {
 });
 
 // Start the server
-const PORT = 3000;
+const PORT = 3001;
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

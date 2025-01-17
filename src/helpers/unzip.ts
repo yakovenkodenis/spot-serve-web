@@ -1,5 +1,5 @@
 import { ZipReader, BlobReader, BlobWriter } from '@zip.js/zip.js';
-import { mimeTypes, type FileExtension, type MimeType } from '../constants/mimeTypes';
+import { mimeTypes, type FileExtension, type MimeType } from '@/constants/mimeTypes';
 
 export type FileEntry = {
   content: string;

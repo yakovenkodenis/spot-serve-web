@@ -1,5 +1,5 @@
-import { unzip } from '../helpers/unzip';
-import { cacheFiles } from '../helpers/cache-files';
+import { unzip } from '@/helpers/unzip';
+import { cacheFiles } from '@/helpers/cache-files';
 
 const cacheStoreName = 'website-cache';
 

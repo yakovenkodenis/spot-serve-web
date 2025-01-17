@@ -4,12 +4,12 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
 // Config
-import { API_BASE_URL } from './config';
-import { GlobalStyles } from './global-styles';
+import { API_BASE_URL } from '@/config';
+import { GlobalStyles } from '@/global-styles';
 
 // Services
-import { loadWebsiteZip } from './services/load-website';
-import { PeerRPC } from './services/peer-rpc';
+import { loadWebsiteZip } from '@/services/load-website';
+import { PeerRPC } from '@/services/peer-rpc';
 
 const url = `${API_BASE_URL}/zip`;
 

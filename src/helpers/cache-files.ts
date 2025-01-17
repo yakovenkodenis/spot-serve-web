@@ -1,4 +1,4 @@
-import type { FileMap } from './unzip';
+import type { FileMap } from '@/helpers/unzip';
 
 type Options = {
   key: string;

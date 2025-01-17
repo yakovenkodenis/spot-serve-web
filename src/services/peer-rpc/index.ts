@@ -1,15 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Peer from 'peerjs';
 
+export { handlerFactories } from './handlers';
+
 type HandlerFunction = (params: any) => Promise<any>;
 
-interface RequestMessage {
+export interface RequestMessage<T = any> {
   id: string;
   method: string;
-  params: any;
+  peerId?: string;
+  params?: T;
 }
 
-interface ResponseMessage {
+export interface ResponseMessage {
   id: string;
   result?: any;
   error?: string;
@@ -52,7 +55,11 @@ export class PeerRPC {
     });
   }
 
-  async request<T>(method: string, params: any): Promise<T> {
+  async request<T>(method: string, params?: any): Promise<T> {
+    const myPeerId = await new Promise<string>((resolve) => {
+      this.peer.on('open', resolve);
+    });
+
     const conn = this.peer.connect(this.remotePeerId, { reliable: true });
 
     return new Promise<T>((resolve, reject) => {
@@ -64,7 +71,7 @@ export class PeerRPC {
       }, this.defaultTimeout);
 
       conn.on('open', () => {
-        const message: RequestMessage = { id: requestId, method, params };
+        const message: RequestMessage = { id: requestId, method, peerId: myPeerId, params };
         conn.send(message);
       });
 
@@ -90,7 +97,11 @@ export class PeerRPC {
     this.handlers.set(method, handler);
   }
 
+  destroy() {
+    this.peer.destroy();
+  }
+
   private generateId(): string {
-    return Math.random().toString(36).substring(2, 11);
+    return Math.random().toString(36).substring(2, 16);
   }
 }

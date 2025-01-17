@@ -7,22 +7,29 @@ import { css } from '@emotion/react';
 import { API_BASE_URL } from '@/config';
 import { GlobalStyles } from '@/global-styles';
 
+// Context
+import { usePeerRpcContext } from '@/context/peer-rpc-context';
+
 // Services
 import { loadWebsiteZip } from '@/services/load-website';
-import { PeerRPC } from '@/services/peer-rpc';
+import { handlerFactories } from '@/services/peer-rpc';
 
 const url = `${API_BASE_URL}/zip`;
 
-const clientId = 'ff4da9ba-a16a-4c7f-ac89-bc2806c32d2e';
-
-const connect = async () => {
-  const rpcClient = new PeerRPC(clientId);
-  const resp = await rpcClient.request<object>('website-zip-archive', { test: true });
-  console.log({ resp, rpcClient });
-}
-
 const App: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const peerRpc = usePeerRpcContext();
+
+  useEffect(() => {
+    if (!peerRpc) return;
+      peerRpc.registerHandler('connect', handlerFactories.createConnectionHandler(async (data) => {
+        console.log('Connect response:', { data });
+      }));
+
+      peerRpc.request<object>('website-zip-archive').then((response) => {
+        console.log({ response });
+      });
+  }, []);
 
   const handleClick = async () => {
     setIsLoading(true);
@@ -93,6 +100,31 @@ const HeaderText = styled.h1`
     }
   }
 `;
+
+// const Input = styled.input`
+//   width: 80%;
+//   max-width: 400px;
+//   font-size: 1.25rem;
+//   padding: 0.75rem 1.25rem;
+//   margin-bottom: 1.5rem;
+//   border: none;
+//   border-radius: 2rem;
+//   outline: none;
+//   color: #333;
+//   background: #fff;
+//   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+//   transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+//   &::placeholder {
+//     color: #aaa;
+//     font-weight: 300;
+//   }
+
+//   &:focus {
+//     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+//     transform: scale(1.02);
+//   }
+// `;
 
 
 type ButtonProps = {

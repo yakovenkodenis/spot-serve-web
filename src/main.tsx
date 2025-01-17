@@ -1,4 +1,5 @@
 import { createRoot } from 'react-dom/client';
+import { PeerRpcContextProvider } from '@/context/peer-rpc-context';
 import App from './App';
 
 if ('serviceWorker' in navigator) {
@@ -15,7 +16,9 @@ if ('serviceWorker' in navigator) {
 }
 
 createRoot(document.getElementById('root')!).render(
-  <App />
+  <PeerRpcContextProvider>
+    <App />
+  </PeerRpcContextProvider>
 );
 
 if (import.meta.hot) {

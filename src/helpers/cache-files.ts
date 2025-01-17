@@ -1,8 +1,14 @@
-import { fetchFiles } from './fetch-site-files';
+import type { FileMap } from './unzip';
 
-export const cacheFiles = async () => {
-  const { files } = await fetchFiles();
-  const cache = await caches.open('website-cache');
+type Options = {
+  key: string;
+};
+
+export async function cacheFiles(files: FileMap, options: Options) {
+  const { key } = options;
+
+  await caches.delete(key);
+  const cache = await caches.open(key);
 
   await Promise.all(
     Object.entries(files).map(async ([filePath, fileData]) => {
@@ -25,10 +31,8 @@ export const cacheFiles = async () => {
 
       const response = new Response(blob, { headers });
 
-      const path = filePath.includes('/') ? `/${filePath}` : filePath;
-      const url = new URL(path, location.origin).toString();
+      const url = new URL(filePath, location.origin).toString();
       const request = new Request(url, { cache: 'reload', headers });
-      console.log(request);
       await cache.put(request, response);
     })
   );

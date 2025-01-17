@@ -71,6 +71,26 @@ const server = http.createServer((req, res) => {
       res.writeHead(500, { 'Content-Type': 'text/plain' });
       res.end('Server error: ' + error.message);
     }
+  } else if (req.url === '/zip' && req.method === 'GET') {
+    const ZIP_FILE_PATH = path.join(__dirname, 'sites', 'qn-solutions.zip');
+
+    if (!fs.existsSync(ZIP_FILE_PATH)) {
+      res.writeHead(404, { 'Content-Type': 'text/plain' });
+      return res.end('Zip file not found.');
+    }
+
+    res.writeHead(200, {
+      'Content-Type': 'application/zip',
+      'Content-Disposition': 'attachment; filename="website.zip"',
+    });
+
+    const readStream = fs.createReadStream(ZIP_FILE_PATH);
+    readStream.pipe(res);
+
+    readStream.on('error', (error) => {
+      res.writeHead(500, { 'Content-Type': 'text/plain' });
+      res.end('Server error: ' + error.message);
+    });
   } else {
     res.writeHead(404, { 'Content-Type': 'text/plain' });
     res.end('Not Found');

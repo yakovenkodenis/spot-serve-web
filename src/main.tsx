@@ -1,9 +1,13 @@
 import { createRoot } from 'react-dom/client';
-import './index.css';
 import App from './App';
 
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
+  window.addEventListener('load', async () => {
+    const registrations = await navigator.serviceWorker.getRegistrations();
+    for (const registration of registrations) {
+      await registration.unregister();
+    }
+
     navigator.serviceWorker.register('/service-worker.js').catch((registrationError) => {
       console.error('Service worker registration failed:', registrationError);
     });

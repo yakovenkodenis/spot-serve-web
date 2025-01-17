@@ -612,6 +612,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@msgpack/msgpack@npm:^2.8.0":
+  version: 2.8.0
+  resolution: "@msgpack/msgpack@npm:2.8.0"
+  checksum: 10c0/5964ed3daad9ccf314238da81c91152dc693bca167b2469445c1d3ce0495443612e543d052281061a91ec48ed44a6a49dd3a334b5d0dbe2dc2db6ea6143e5787
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -1101,6 +1108,13 @@ __metadata:
   peerDependencies:
     vite: ^4 || ^5 || ^6
   checksum: 10c0/9b9a5e0540791ba96a9fe4e8b8146ab274edcc730315535705f20126d6dfaffe72ae474bac9904ce841976e1959b6ecffd047bb2f0b7abf4d85aae7fbfdd00ab
+  languageName: node
+  linkType: hard
+
+"@zip.js/zip.js@npm:^2.7.54":
+  version: 2.7.54
+  resolution: "@zip.js/zip.js@npm:2.7.54"
+  checksum: 10c0/2cc19d5dc3bd665cbaa5e487dda506ed5bfb08c3f63d5ad147864c055f3ca7532a00b4f12b378e811b6f12185739d5e2c78943e796ca713d51a5682cb7836d94
   languageName: node
   linkType: hard
 
@@ -1632,6 +1646,13 @@ __metadata:
   version: 2.0.3
   resolution: "esutils@npm:2.0.3"
   checksum: 10c0/9a2fe69a41bfdade834ba7c42de4723c97ec776e40656919c62cbd13607c45e127a003f05f724a1ea55e5029a4cf2de444b13009f2af71271e42d93a637137c7
+  languageName: node
+  linkType: hard
+
+"eventemitter3@npm:^4.0.7":
+  version: 4.0.7
+  resolution: "eventemitter3@npm:4.0.7"
+  checksum: 10c0/5f6d97cbcbac47be798e6355e3a7639a84ee1f7d9b199a07017f1d2f1e2fe236004d14fa5dfaeba661f94ea57805385e326236a6debbc7145c8877fbc0297c6b
   languageName: node
   linkType: hard
 
@@ -2447,6 +2468,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"peerjs-js-binarypack@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "peerjs-js-binarypack@npm:2.1.0"
+  checksum: 10c0/562b6ef27b0de6b152dcab3e13684d38decfff8b51967e12ae14707b1292a78c162ce6befc9ae63ffefec81555eb37372a0e8a530aeabdc69bea3348e4a43790
+  languageName: node
+  linkType: hard
+
+"peerjs@npm:^1.5.4":
+  version: 1.5.4
+  resolution: "peerjs@npm:1.5.4"
+  dependencies:
+    "@msgpack/msgpack": "npm:^2.8.0"
+    eventemitter3: "npm:^4.0.7"
+    peerjs-js-binarypack: "npm:^2.1.0"
+    webrtc-adapter: "npm:^9.0.0"
+  checksum: 10c0/f52d95693059917ae701c829f766b8c8c6ad13041f16e294d3f82a9f49357e769800895cba445139c3586c89a59f6d818b58c4f1251612139fa6a891d951ace7
+  languageName: node
+  linkType: hard
+
 "picocolors@npm:^1.0.0, picocolors@npm:^1.1.1":
   version: 1.1.1
   resolution: "picocolors@npm:1.1.1"
@@ -2700,6 +2740,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sdp@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "sdp@npm:3.2.0"
+  checksum: 10c0/fa0146132b4c9185f276b80e09f52259b103e609565ac40c560250dbe7fc47723d30530c0db9cac6217c83153944a71af81fa70dc0367f195aabcf110f8185fd
+  languageName: node
+  linkType: hard
+
 "semver@npm:^7.3.5, semver@npm:^7.6.0":
   version: 7.6.3
   resolution: "semver@npm:7.6.3"
@@ -2785,10 +2832,12 @@ __metadata:
     "@types/react": "npm:^19.0.7"
     "@types/react-dom": "npm:^19.0.3"
     "@vitejs/plugin-react-swc": "npm:^3.5.0"
+    "@zip.js/zip.js": "npm:^2.7.54"
     eslint: "npm:^9.17.0"
     eslint-plugin-react-hooks: "npm:^5.0.0"
     eslint-plugin-react-refresh: "npm:^0.4.16"
     globals: "npm:^15.14.0"
+    peerjs: "npm:^1.5.4"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     typescript: "npm:^5.7.3"
@@ -3041,6 +3090,15 @@ __metadata:
   bin:
     vite: bin/vite.js
   checksum: 10c0/ae81047b4290a7206b9394a39a782d509e9610462e7946422ba22d5bc615b5a322c07e33d7bf9dd0b3312ec3f5c63353b725913d1519324bfdf539b4f1e03f52
+  languageName: node
+  linkType: hard
+
+"webrtc-adapter@npm:^9.0.0":
+  version: 9.0.1
+  resolution: "webrtc-adapter@npm:9.0.1"
+  dependencies:
+    sdp: "npm:^3.2.0"
+  checksum: 10c0/09286adf351b3aff6eadf7942de7f153072a946fd815450e23505e39181c332d0552f4d27a99c5d7258efa3bd70a12949fe043fd8dc6acc03507b4448d7a597e
   languageName: node
   linkType: hard
 

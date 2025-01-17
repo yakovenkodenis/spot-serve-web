@@ -1,8 +1,25 @@
-import { type FC, useState } from 'react';
+// Modules
+import { type FC, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-import { cacheFiles } from './helpers/cache-site-files';
+// Config
+import { API_BASE_URL } from './config';
+import { GlobalStyles } from './global-styles';
+
+// Services
+import { loadWebsiteZip } from './services/load-website';
+import { PeerRPC } from './services/peer-rpc';
+
+const url = `${API_BASE_URL}/zip`;
+
+const clientId = 'ff4da9ba-a16a-4c7f-ac89-bc2806c32d2e';
+
+const connect = async () => {
+  const rpcClient = new PeerRPC(clientId);
+  const resp = await rpcClient.request<object>('website-zip-archive', { test: true });
+  console.log({ resp, rpcClient });
+}
 
 const App: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,18 +27,10 @@ const App: FC = () => {
   const handleClick = async () => {
     setIsLoading(true);
     try {
-      await cacheFiles();
-      const cache = await caches.open('website-cache');
-      const indexHtmlResponse = await cache.match(new Request('index.html'));
-
-      if (indexHtmlResponse && indexHtmlResponse.ok) {
-        const indexHtmlString = await indexHtmlResponse.text();
-        document.open();
-        document.write(indexHtmlString);
-        document.close();
-      } else {
-        console.error('Failed to load index.html from cache.');
-      }
+      const indexHtml = await loadWebsiteZip(url);
+      document.open();
+      document.write(indexHtml);
+      document.close();
     } catch (error) {
       console.error('Error loading website:', error);
     } finally {
@@ -30,21 +39,61 @@ const App: FC = () => {
   };
 
   return (
-    <AppContainer>
-      <Button onClick={handleClick} disabled={isLoading} isLoading={isLoading}>
-        Load Website
-      </Button>
-    </AppContainer>
+    <>
+      <GlobalStyles />
+      <AppContainer>
+        <HeaderText>
+          <span>Spot Serve</span>
+          please press the button below to load a website preview
+        </HeaderText>
+        <Button onClick={handleClick} disabled={isLoading} isLoading={isLoading}>
+          Load preview
+        </Button>
+      </AppContainer>
+    </>
   );
 };
 
 const AppContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #ffffff;
+  background: linear-gradient(120deg, #fdfbfb, #ebedee);
 `;
+
+const HeaderText = styled.h1`
+  font-size: 3rem;
+  font-weight: 300;
+  color: #222;
+  margin-bottom: 2rem;
+  text-align: center;
+  max-width: 80%;
+  line-height: 1.5;
+  background: linear-gradient(135deg, #ff7eb3, #ff758c, #42a5f5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 300% 300%;
+  animation: gradientAnimation 5s ease infinite alternate;
+
+  span {
+    display: block;
+    font-size: 5rem;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+  }
+
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
+`;
+
 
 type ButtonProps = {
   isLoading: boolean;

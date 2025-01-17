@@ -1,5 +1,5 @@
 import { createConnectionHandler } from './handleConnection';
 
-export const handlerFactories = {
+export const handlers = {
   createConnectionHandler,
 } as const;

@@ -9,8 +9,8 @@ export const PeerContext = createContext<PeerRPC | null>(null);
 export function usePeerRpcContext() {
   const peerRpc = useContext(PeerContext);
 
-  if (!peerRpc) {
-    throw new Error('`usePeerRpcContext` must be used inside PeerRpcContextProvider');
+  if (peerRpc === undefined) {
+    throw new Error('`usePeerRpcContext` must be used within PeerRpcContextProvider');
   }
 
   return peerRpc;

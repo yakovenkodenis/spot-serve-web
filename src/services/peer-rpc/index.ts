@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Peer from 'peerjs';
 
-export { handlerFactories } from './handlers';
+export { handlers } from './handlers';
 
 type HandlerFunction = (params: any) => Promise<any>;
 

@@ -10,9 +10,12 @@ import { GlobalStyles } from '@/global-styles';
 // Context
 import { usePeerRpcContext } from '@/context/peer-rpc-context';
 
+// Hooks
+import { useQueryParam } from '@/hooks/use-query-param';
+
 // Services
 import { loadWebsiteZip } from '@/services/load-website';
-import { handlerFactories } from '@/services/peer-rpc';
+import { handlers } from '@/services/peer-rpc';
 
 const url = `${API_BASE_URL}/zip`;
 
@@ -20,9 +23,11 @@ const App: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const peerRpc = usePeerRpcContext();
 
+  const remotePeerId = useQueryParam('r');
+
   useEffect(() => {
     if (!peerRpc) return;
-      peerRpc.registerHandler('connect', handlerFactories.createConnectionHandler(async (data) => {
+      peerRpc.registerHandler('connect', handlers.createConnectionHandler(async (data) => {
         console.log('Connect response:', { data });
       }));
 
@@ -51,9 +56,11 @@ const App: FC = () => {
       <AppContainer>
         <HeaderText>
           <span>Spot Serve</span>
-          please press the button below to load a website preview
         </HeaderText>
-        <Button onClick={handleClick} disabled={isLoading} isLoading={isLoading}>
+        <HeaderText error={!remotePeerId}>
+          {remotePeerId ? 'please press the button below to load a website preview' : 'the url must contain the website id'}
+        </HeaderText>
+        <Button onClick={handleClick} disabled={isLoading || !remotePeerId} isLoading={isLoading}>
           Load preview
         </Button>
       </AppContainer>
@@ -70,7 +77,7 @@ const AppContainer = styled.div`
   background: linear-gradient(120deg, #fdfbfb, #ebedee);
 `;
 
-const HeaderText = styled.h1`
+const HeaderText = styled.h1<{ error?: boolean }>`
   font-size: 3rem;
   font-weight: 300;
   color: #222;
@@ -78,11 +85,17 @@ const HeaderText = styled.h1`
   text-align: center;
   max-width: 80%;
   line-height: 1.5;
-  background: linear-gradient(135deg, #ff7eb3, #ff758c, #42a5f5);
+  background: ${({ error }) =>
+    error
+      ? 'linear-gradient(135deg, #ff4d4f, #ff7373, #ff4d4f)'
+      : 'linear-gradient(135deg, #ff7eb3, #ff758c, #42a5f5)'};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 300% 300%;
-  animation: gradientAnimation 5s ease infinite alternate;
+  animation: ${({ error }) =>
+    error
+      ? 'errorGradientAnimation 3s ease infinite alternate'
+      : 'gradientAnimation 5s ease infinite alternate'};
 
   span {
     display: block;
@@ -99,33 +112,16 @@ const HeaderText = styled.h1`
       background-position: 100% 50%;
     }
   }
+
+  @keyframes errorGradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 100% 50%;
+    }
+  }
 `;
-
-// const Input = styled.input`
-//   width: 80%;
-//   max-width: 400px;
-//   font-size: 1.25rem;
-//   padding: 0.75rem 1.25rem;
-//   margin-bottom: 1.5rem;
-//   border: none;
-//   border-radius: 2rem;
-//   outline: none;
-//   color: #333;
-//   background: #fff;
-//   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-//   transition: box-shadow 0.3s ease, transform 0.3s ease;
-
-//   &::placeholder {
-//     color: #aaa;
-//     font-weight: 300;
-//   }
-
-//   &:focus {
-//     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-//     transform: scale(1.02);
-//   }
-// `;
-
 
 type ButtonProps = {
   isLoading: boolean;

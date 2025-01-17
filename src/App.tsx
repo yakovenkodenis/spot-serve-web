@@ -3,6 +3,9 @@ import { type FC, useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
+// Assets
+import { LogoIcon } from '@/assets/logo';
+
 // Config
 import { API_BASE_URL } from '@/config';
 import { GlobalStyles } from '@/global-styles';
@@ -54,6 +57,16 @@ const App: FC = () => {
     <>
       <GlobalStyles />
       <AppContainer>
+        <TransparentHeader>
+          <Logo>
+            <LogoIcon />
+          </Logo>
+          <NavList>
+            <li>About</li>
+            <li>Support</li>
+            <li>App</li>
+          </NavList>
+        </TransparentHeader>
         <HeaderText>
           <span>Spot Serve</span>
         </HeaderText>
@@ -75,6 +88,51 @@ const AppContainer = styled.div`
   align-items: center;
   height: 100vh;
   background: linear-gradient(120deg, #fdfbfb, #ebedee);
+`;
+
+const TransparentHeader = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 2rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: transparent;
+  z-index: 1000;
+`;
+
+const Logo = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  svg {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+`;
+
+const NavList = styled.ul`
+  display: flex;
+  gap: 3.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-weight: 300;
+  color: #555;
+
+  li {
+    cursor: pointer;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #222;
+    }
+  }
 `;
 
 const HeaderText = styled.h1<{ error?: boolean }>`

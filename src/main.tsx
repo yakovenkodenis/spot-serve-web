@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { PeerRpcContextProvider } from '@/context/peer-rpc-context';
+import { PeerRpcContextProvider } from '@/context/peer-rpc';
 import App from './App';
 
 if ('serviceWorker' in navigator) {
@@ -16,7 +16,7 @@ if ('serviceWorker' in navigator) {
 }
 
 createRoot(document.getElementById('root')!).render(
-  <PeerRpcContextProvider>
+  <PeerRpcContextProvider options={{ debug: import.meta.env.MODE === 'development' }}>
     <App />
   </PeerRpcContextProvider>
 );

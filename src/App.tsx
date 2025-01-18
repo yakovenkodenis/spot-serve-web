@@ -1,5 +1,5 @@
 // Modules
-import { type FC, useState, useEffect } from 'react';
+import { type FC, useState, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
@@ -7,42 +7,31 @@ import { css } from '@emotion/react';
 import { LogoIcon } from '@/assets/logo';
 
 // Config
-import { API_BASE_URL } from '@/config';
 import { GlobalStyles } from '@/global-styles';
 
 // Context
-import { usePeerRpcContext } from '@/context/peer-rpc-context';
+import { usePeerRpc } from '@/context/peer-rpc';
 
 // Hooks
 import { useQueryParam } from '@/hooks/use-query-param';
 
 // Services
-import { loadWebsiteZip } from '@/services/load-website';
-import { handlers } from '@/services/peer-rpc';
-
-const url = `${API_BASE_URL}/zip`;
+import { loadWebsiteZipFromBlob } from '@/services/load-website';
 
 const App: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const peerRpc = usePeerRpcContext();
+  const { rpc } = usePeerRpc();
 
   const remotePeerId = useQueryParam('r');
 
-  useEffect(() => {
-    if (!peerRpc) return;
-      peerRpc.registerHandler('connect', handlers.createConnectionHandler(async (data) => {
-        console.log('Connect response:', { data });
-      }));
+  const handleClick = useCallback(async () => {
+    if (!rpc) return;
 
-      peerRpc.request<object>('website-zip-archive').then((response) => {
-        console.log({ response });
-      });
-  }, [peerRpc]);
-
-  const handleClick = async () => {
     setIsLoading(true);
     try {
-      const indexHtml = await loadWebsiteZip(url);
+      const response = await rpc.request<Uint8Array>('website-zip-archive');
+       const indexHtml = await loadWebsiteZipFromBlob(new Blob([response]));
+
       document.open();
       document.write(indexHtml);
       document.close();
@@ -51,7 +40,9 @@ const App: FC = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [rpc]);
+
+  const buttonDisabled = isLoading || !remotePeerId || !rpc;
 
   return (
     <>
@@ -71,10 +62,12 @@ const App: FC = () => {
           <span>Spot Serve</span>
         </HeaderText>
         <HeaderText error={!remotePeerId}>
-          {remotePeerId ? 'please press the button below to load a website preview' : 'the url must contain the website id'}
+          {remotePeerId
+            ? 'please press the button below to load a website preview'
+            : 'the url must contain the website id'}
         </HeaderText>
-        <Button onClick={handleClick} disabled={isLoading || !remotePeerId} isLoading={isLoading}>
-          Load preview
+        <Button onClick={handleClick} disabled={buttonDisabled} isLoading={isLoading}>
+          {!rpc ? 'Connecting to peer...' : 'Load preview'}
         </Button>
       </AppContainer>
     </>

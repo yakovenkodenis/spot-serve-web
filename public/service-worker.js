@@ -24,7 +24,7 @@ self.addEventListener('fetch', (event) => {
           console.log(`Serving from cache: ${url.pathname}`);
           return cachedResponse;
         }
-        console.log(`Fetching from network: ${url.pathname}`);
+
         return fetch(event.request).then((networkResponse) => {
           return networkResponse;
         });

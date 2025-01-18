@@ -1,50 +1,42 @@
-# React + TypeScript + Vite
+# Spot Serve
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Spot Serve is a seamless solution for developers to share quick, interactive previews of their websites. This app leverages modern technologies, including WebRTC, to allow for fast and secure file sharing directly from your local machine without relying on third-party hosting.
 
-Currently, two official plugins are available:
+## Features
+- Upload website files as a zip archive using the desktop app.
+- Automatically generate a unique URL for others to view the website preview.
+- Fast, secure file sharing powered by WebRTC technology.
+- Simplified process for collaboration between developers, designers, and clients.
+- No need for third-party hosting services.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation
 
-## Expanding the ESLint configuration
+1. Clone the repository:
+    ```bash
+    git clone git@github.com:yakovenkodenis/spot-serve-web.git
+    ```
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+2. Install dependencies (for both frontend and backend, if applicable):
+    ```bash
+    cd spot-serve-web
+    yarn install
+    ```
 
-- Configure the top-level `parserOptions` property like this:
+3. Run the app:
+    ```bash
+    yarn dev
+    ```
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Usage
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+1. Upload your website files as a zip archive using [the desktop app](https://github.com/explicit-logic/spot-serve-gui).
+2. Once uploaded, a unique URL will be generated.
+3. Share this URL with others for them to preview your website.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## About Spot Serve
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Spot Serve is designed with simplicity and performance in mind. It simplifies the process of showcasing a work-in-progress or delivering the final product to clients and collaborators. Powered by WebRTC, it ensures a hassle-free, direct preview experience every time.
+
+## License
+
+Spot Serve is licensed under the MIT License.

@@ -2,7 +2,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider, createHashRouter } from 'react-router';
 
-import { routes } from './config/routes';
+import { routes } from '@/config/routes';
+import { basePath } from '@/config/base-path';
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
@@ -11,7 +12,7 @@ if ('serviceWorker' in navigator) {
       await registration.unregister();
     }
 
-    navigator.serviceWorker.register('/service-worker.js').catch((registrationError) => {
+    navigator.serviceWorker.register(`${basePath}service-worker.js`).catch((registrationError) => {
       console.error('Service worker registration failed:', registrationError);
     });
   });
@@ -19,7 +20,7 @@ if ('serviceWorker' in navigator) {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={createHashRouter(routes)} />
+    <RouterProvider router={createHashRouter(routes, { basename: basePath })} />
   </StrictMode>
 );
 

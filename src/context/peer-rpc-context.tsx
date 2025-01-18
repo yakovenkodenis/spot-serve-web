@@ -28,7 +28,7 @@ export function PeerRpcContextProvider(props: PropsWithChildren) {
     setPeerRpc(peerRpcClient);
 
     return () => peerRpcClient.destroy();
-  }, []);
+  }, [remotePeerId]);
 
   return (
     <PeerContext.Provider value={peerRpc}>

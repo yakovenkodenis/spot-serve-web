@@ -37,7 +37,7 @@ const App: FC = () => {
       peerRpc.request<object>('website-zip-archive').then((response) => {
         console.log({ response });
       });
-  }, []);
+  }, [peerRpc]);
 
   const handleClick = async () => {
     setIsLoading(true);

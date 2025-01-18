@@ -1,6 +1,8 @@
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { PeerRpcContextProvider } from '@/context/peer-rpc';
-import App from './App';
+import { RouterProvider, createBrowserRouter } from 'react-router';
+
+import { routes } from './config/routes';
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
@@ -16,9 +18,9 @@ if ('serviceWorker' in navigator) {
 }
 
 createRoot(document.getElementById('root')!).render(
-  <PeerRpcContextProvider options={{ debug: import.meta.env.MODE === 'development' }}>
-    <App />
-  </PeerRpcContextProvider>
+  <StrictMode>
+    <RouterProvider router={createBrowserRouter(routes)} />
+  </StrictMode>
 );
 
 if (import.meta.hot) {

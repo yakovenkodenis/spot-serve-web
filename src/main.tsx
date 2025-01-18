@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { RouterProvider, createBrowserRouter } from 'react-router';
+import { RouterProvider, createHashRouter } from 'react-router';
 
 import { routes } from './config/routes';
 
@@ -19,7 +19,7 @@ if ('serviceWorker' in navigator) {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={createBrowserRouter(routes)} />
+    <RouterProvider router={createHashRouter(routes)} />
   </StrictMode>
 );
 

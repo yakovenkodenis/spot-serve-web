@@ -8,7 +8,9 @@ import { Logo } from '@/components/logo';
 
 // Config
 import { GlobalStyles } from '@/config/global-styles';
-import { ROUTES } from '@/config/routes';
+
+// Constants
+import { ROUTES } from '@/constants/routes';
 
 // Context
 import { PeerRpcContextProvider } from '@/context/peer-rpc';

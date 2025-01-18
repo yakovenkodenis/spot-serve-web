@@ -6,8 +6,8 @@ import styled from '@emotion/styled';
 // Assets
 import { LogoIcon } from '@/assets/logo';
 
-// Config
-import { ROUTES } from '@/config/routes';
+// Constants
+import { ROUTES } from '@/constants/routes';
 
 export const Logo: FC = () => {
   const navigate = useNavigate();

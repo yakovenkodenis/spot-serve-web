@@ -1,14 +1,7 @@
 import { type RouteObject, redirect } from 'react-router';
 
 import App from '../App';
-
-export const ROUTES = {
-  home: '/',
-  app: '/app',
-  about: '/about',
-  support: '/support',
-  notFound: '/not-found',
-} as const;
+import { ROUTES } from '@/constants/routes';
 
 export const routes = [
   {

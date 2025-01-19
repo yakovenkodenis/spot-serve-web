@@ -1,7 +1,9 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider, createHashRouter } from 'react-router';
+
 import { routes } from '@/config/routes';
+
 import './register-service-worker';
 
 createRoot(document.getElementById('root')!).render(

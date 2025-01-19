@@ -8,7 +8,7 @@ export const useQueryParam = (param: string): string => {
   useEffect(() => {
     const params = new URLSearchParams(search);
     setValue(params.get(param) ?? '');
-  }, [param, location]);
+  }, [param, search]);
   
   return value;
 };

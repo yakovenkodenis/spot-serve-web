@@ -14,7 +14,7 @@ import { loadWebsiteZipFromBlob } from '@/services/load-website';
 
 export const Component: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const { rpc } = usePeerRpc();
+  const { rpc, rpcMethods } = usePeerRpc();
 
   const remotePeerId = useQueryParam('r');
 
@@ -23,7 +23,7 @@ export const Component: FC = () => {
 
     setIsLoading(true);
     try {
-      const response = await rpc.request<Uint8Array>('website-zip-archive');
+      const response = await rpc.request<Uint8Array>(rpcMethods.websiteZipArchive);
       const indexHtml = await loadWebsiteZipFromBlob(new Blob([response]));
 
       document.open();
@@ -34,7 +34,7 @@ export const Component: FC = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [rpc]);
+  }, [rpc, rpcMethods.websiteZipArchive]);
 
   const buttonDisabled = isLoading || !remotePeerId || !rpc;
 

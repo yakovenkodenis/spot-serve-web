@@ -8,7 +8,7 @@ import { PeerRpcContext } from './context';
 import { useQueryParam } from '@/hooks/use-query-param';
 
 // Services
-import { PeerRPC } from '@/services/peer-rpc';
+import { PeerRPC, rpcMethods } from '@/services/peer-rpc';
 
 interface PeerRpcProviderProps extends PropsWithChildren {
   options?: {
@@ -57,7 +57,8 @@ export function PeerRpcContextProvider(props: PeerRpcProviderProps) {
     rpc: rpcRef.current,
     peerId,
     connected,
-    remotePeerId
+    remotePeerId,
+    rpcMethods,
   }), [peerId, connected, remotePeerId]);
 
   return (

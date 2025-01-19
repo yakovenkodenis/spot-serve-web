@@ -2,6 +2,7 @@
 import Peer, { type DataConnection } from 'peerjs';
 
 export { handlers } from './handlers';
+export { rpcMethods } from './methods';
 
 export interface RequestMessage<T = any> {
   id: string;

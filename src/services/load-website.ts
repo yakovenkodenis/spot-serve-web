@@ -16,11 +16,10 @@ export async function loadWebsiteZipFromUrl(url: string): Promise<string> {
 
 export async function loadWebsiteZipFromBlob(zipBlob: Blob): Promise<string> {
   const filesMap = await unzip(zipBlob);
-  console.log({ filesMap })
   const cache = await caches.open(cacheStoreName);
   await cacheFiles(filesMap, { key: cacheStoreName });
 
-  const indexHtmlResponse = await cache.match(new Request('index.html'));
+  const indexHtmlResponse = await cache.match(new Request('/index.html'));
 
   if (indexHtmlResponse && indexHtmlResponse.ok) {
     const text = await indexHtmlResponse.text();

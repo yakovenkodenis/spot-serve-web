@@ -1,5 +1,11 @@
 import { Global, css } from '@emotion/react';
 
+// Assets
+import PTSansBold from '@/assets/fonts/PT_Sans/PTSans-Bold.ttf';
+import PTSansItalic from '@/assets/fonts/PT_Sans/PTSans-Italic.ttf';
+import PTSansRegular from '@/assets/fonts/PT_Sans/PTSans-Regular.ttf';
+import PTSansBoldItalic from '@/assets/fonts/PT_Sans/PTSans-BoldItalic.ttf';
+
 export function GlobalStyles() {
   return (
     <Global
@@ -8,28 +14,28 @@ export function GlobalStyles() {
           font-family: 'PT Sans';
           font-style: normal;
           font-weight: normal;
-          src: url('/fonts/PT_Sans/PTSans-Regular.ttf') format('truetype');
+          src: url('${PTSansRegular}') format('truetype');
         }
 
         @font-face {
           font-family: 'PT Sans';
           font-style: italic;
           font-weight: normal;
-          src: url('/fonts/PT_Sans/PTSans-Italic.ttf') format('truetype');
+          src: url('${PTSansItalic}') format('truetype');
         }
 
         @font-face {
           font-family: 'PT Sans';
           font-style: normal;
           font-weight: bold;
-          src: url('/fonts/PT_Sans/PTSans-Bold.ttf') format('truetype');
+          src: url('${PTSansBold}') format('truetype');
         }
 
         @font-face {
           font-family: 'PT Sans';
           font-style: italic;
           font-weight: bold;
-          src: url('/fonts/PT_Sans/PTSans-BoldItalic.ttf') format('truetype');
+          src: url('${PTSansBoldItalic}') format('truetype');
         }
 
         * {

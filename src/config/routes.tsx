@@ -17,6 +17,14 @@ export const routes = [
         lazy: () => import('@/pages/about'),
       },
       {
+        path: ROUTES.support,
+        lazy: () => import('@/pages/support'),
+      },
+      {
+        path: ROUTES.app,
+        lazy: () => import('@/pages/app'),
+      },
+      {
         path: ROUTES.notFound,
         lazy: () => import('@/pages/not-found'),
       },

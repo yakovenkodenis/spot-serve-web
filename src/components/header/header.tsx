@@ -14,6 +14,9 @@ export const Header: FC = () => {
     <TransparentHeader>
       <Logo />
       <NavList>
+        <NavLink to={ROUTES.home} end>
+          Home
+        </NavLink>
         <NavLink to={ROUTES.about} end>
           About
         </NavLink>

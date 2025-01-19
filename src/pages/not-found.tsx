@@ -50,11 +50,11 @@ const Heading = styled.h1`
   background-size: 300% 300%;
   animation: gradientAnimation 5s ease infinite alternate;
   display: block;
-  text-rendering: geometricPrecision; /* Ensures precise text rendering */
-  -webkit-font-smoothing: antialiased; /* Improves font clarity on webkit browsers */
-  -moz-osx-font-smoothing: grayscale; /* Improves font clarity on macOS */
-  overflow-wrap: normal; /* Prevents text wrapping issues */
-  white-space: nowrap; /* Ensures text isn't wrapped or squeezed */
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-wrap: normal;
+  white-space: nowrap;
   
   span {
     display: block;
@@ -62,7 +62,7 @@ const Heading = styled.h1`
     font-weight: 700;
     margin-bottom: 1rem;
     line-height: 1.1;
-    text-rendering: geometricPrecision; /* Consistent rendering for nested span */
+    text-rendering: geometricPrecision;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

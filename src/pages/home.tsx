@@ -1,15 +1,10 @@
-// Modules
+// Updated Home Component
 import { type FC, useState, useCallback } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-// Context
 import { usePeerRpc } from '@/context/peer-rpc';
-
-// Hooks
 import { useQueryParam } from '@/hooks/use-query-param';
-
-// Services
 import { loadWebsiteZipFromBlob } from '@/services/load-website';
 
 export const Component: FC = () => {
@@ -39,21 +34,61 @@ export const Component: FC = () => {
   const buttonDisabled = isLoading || !remotePeerId || !rpc;
 
   return (
-    <>
-      <HeaderText>
-        <span>Spot Serve</span>
-      </HeaderText>
-      <HeaderText error={!remotePeerId}>
-        {remotePeerId
-          ? 'please press the button below to load a website preview'
-          : 'the url must contain the website id'}
-      </HeaderText>
-      <Button onClick={handleClick} disabled={buttonDisabled} isLoading={isLoading}>
-        {!rpc ? 'Connecting to peer...' : 'Load preview'}
-      </Button>
-    </>
+    <PageContainer>
+      <ContentWrapper>
+        <HeaderText>
+          <span>Spot Serve</span>
+        </HeaderText>
+        <SubHeader>
+          {remotePeerId
+            ? 'Easily share and preview websites instantly!'
+            : 'Please ensure the URL contains the website ID.'}
+        </SubHeader>
+
+        <Features>
+          <FeatureCard>
+            <Icon>🌐</Icon>
+            <h3>Preview Websites</h3>
+            <p>Quickly load and preview websites with ease.</p>
+          </FeatureCard>
+          <FeatureCard>
+            <Icon>🔗</Icon>
+            <h3>Shareable Links</h3>
+            <p>Generate unique links to share previews securely.</p>
+          </FeatureCard>
+          <FeatureCard>
+            <Icon>⚡</Icon>
+            <h3>Fast and Secure</h3>
+            <p>Powered by WebRTC for efficient collaboration.</p>
+          </FeatureCard>
+        </Features>
+
+        <Button onClick={handleClick} disabled={buttonDisabled} isLoading={isLoading}>
+          {!rpc ? 'Connecting to peer...' : 'Load Preview'}
+        </Button>
+      </ContentWrapper>
+    </PageContainer>
   );
 };
+
+const PageContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(120deg, #fdfbfb, #ebedee);
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 2rem;
+  text-align: center;
+`;
 
 const HeaderText = styled.h1<{ error?: boolean }>`
   font-size: 3rem;
@@ -99,6 +134,54 @@ const HeaderText = styled.h1<{ error?: boolean }>`
   }
 `;
 
+const SubHeader = styled.h2`
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #555;
+  margin-bottom: 2rem;
+`;
+
+const Features = styled.div`
+  display: flex;
+  gap: 2rem;
+  margin: 3rem 0;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+`;
+
+const FeatureCard = styled.div`
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  text-align: center;
+  width: 100%;
+  max-width: 300px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    margin: 1rem 0 0.5rem;
+    color: #333;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #555;
+  }
+`;
+
+const Icon = styled.div`
+  font-size: 2.5rem;
+  color: #ff758c;
+`;
+
 type ButtonProps = {
   isLoading: boolean;
 };
@@ -114,16 +197,10 @@ const Button = styled.button<ButtonProps>`
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
-  overflow: hidden;
 
   &:hover {
     transform: scale(1.05);
     box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-  }
-
-  &:active {
-    transform: scale(0.98);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
 
   &:disabled {

@@ -3,6 +3,9 @@ import { type FC, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import styled from '@emotion/styled';
 
+// Components
+import { Button } from '@/components/button';
+
 export const Component: FC = () => {
   const navigate = useNavigate();
 
@@ -18,7 +21,7 @@ export const Component: FC = () => {
       <Description>
         The page you are looking for does not exist or has been moved. Please return to the main page.
       </Description>
-      <RedirectButton onClick={handleRedirect}>Go to Main Page</RedirectButton>
+      <Button onClick={handleRedirect}>Go to Main Page</Button>
     </Container>
   );
 };
@@ -84,28 +87,4 @@ const Description = styled.p`
   max-width: 600px;
   margin-bottom: 2rem;
   line-height: 1.6;
-`;
-
-const RedirectButton = styled.button`
-  font-size: 1.25rem;
-  padding: 1rem 2.5rem;
-  color: #ffffff;
-  background: linear-gradient(135deg, #ff7eb3, #ff758c);
-  border: none;
-  border-radius: 3rem;
-  cursor: pointer;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-  overflow: hidden;
-
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-  }
-
-  &:active {
-    transform: scale(0.98);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
 `;

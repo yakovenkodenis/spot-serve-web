@@ -1,10 +1,18 @@
-// Updated Home Component
+// Modules
 import { type FC, useState, useCallback } from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
+// import { css } from '@emotion/react';
 
+// Components
+import { Button } from '@/components/button';
+
+// Context
 import { usePeerRpc } from '@/context/peer-rpc';
+
+// Hooks
 import { useQueryParam } from '@/hooks/use-query-param';
+
+// Services
 import { loadWebsiteZipFromBlob } from '@/services/load-website';
 
 export const Component: FC = () => {
@@ -63,7 +71,13 @@ export const Component: FC = () => {
           </FeatureCard>
         </Features>
 
-        <Button onClick={handleClick} disabled={buttonDisabled} isLoading={isLoading}>
+        <Button
+          tag='button'
+          onClick={handleClick}
+          disabled={buttonDisabled}
+          isLoading={isLoading}
+          variant='pink'
+        >
           {!rpc ? 'Connecting to peer...' : 'Load Preview'}
         </Button>
       </ContentWrapper>
@@ -180,60 +194,4 @@ const FeatureCard = styled.div`
 const Icon = styled.div`
   font-size: 2.5rem;
   color: #ff758c;
-`;
-
-type ButtonProps = {
-  isLoading: boolean;
-};
-
-const Button = styled.button<ButtonProps>`
-  font-size: 1.25rem;
-  padding: 1rem 2.5rem;
-  color: #ffffff;
-  background: linear-gradient(135deg, #ff7eb3, #ff758c);
-  border: none;
-  border-radius: 3rem;
-  cursor: pointer;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-
-  &:hover {
-    transform: scale(1.05);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
-  }
-
-  &:disabled {
-    background: linear-gradient(135deg, #ddd, #bbb);
-    cursor: not-allowed;
-  }
-
-  ${(props) =>
-    props.isLoading &&
-    css`
-      color: transparent;
-      pointer-events: none;
-      &::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 1.5rem;
-        height: 1.5rem;
-        border: 3px solid transparent;
-        border-top: 3px solid #ffffff;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-      }
-    `}
-
-  @keyframes spin {
-    0% {
-      transform: translate(-50%, -50%) rotate(0deg);
-    }
-    100% {
-      transform: translate(-50%, -50%) rotate(360deg);
-    }
-  }
 `;

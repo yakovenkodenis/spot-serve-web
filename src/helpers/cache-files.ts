@@ -4,8 +4,6 @@ type Options = {
   key: string;
 };
 
-const baseUrl = location.protocol + '//' + location.host + location.pathname;
-
 export async function cacheFiles(files: FileMap, options: Options) {
   const { key } = options;
 
@@ -33,7 +31,7 @@ export async function cacheFiles(files: FileMap, options: Options) {
 
       const response = new Response(blob, { headers });
 
-      const url = new URL(filePath, baseUrl).toString();
+      const url = new URL(filePath, location.origin).toString();
       const request = new Request(url, { cache: 'reload', headers });
       await cache.put(request, response);
     })

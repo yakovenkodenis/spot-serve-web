@@ -1,1 +1,1 @@
-export const basePath = '/spot-serve-web/';
+export const basePath = '/';

@@ -1,1 +1,1 @@
-export const basePath = import.meta.env.MODE === 'development' ? '/' : '/spot-serve-web/';
+export const basePath = '/spot-serve-web/';

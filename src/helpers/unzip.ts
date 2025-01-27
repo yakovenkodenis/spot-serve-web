@@ -34,8 +34,7 @@ export async function unzip(zipBlob: Blob): Promise<FileMap> {
       const ext = entry.filename.split('.').pop();
       const mimeType = mimeTypes[`.${ext}` as FileExtension] ?? mimeTypes._default;
 
-      const [, ...pathParts] = entry.filename.split('/')
-      const filePathWithoutRoot = pathParts.join('/');
+      const filePath = stripLeadingSlash(entry.filename);
 
       let content: string;
       let encoding: string;
@@ -55,7 +54,7 @@ export async function unzip(zipBlob: Blob): Promise<FileMap> {
         encoding = 'utf-8';
       }
 
-      fileMap[filePathWithoutRoot] = {
+      fileMap[filePath] = {
         content,
         mimeType,
         contentLength: blob.size,
@@ -67,4 +66,12 @@ export async function unzip(zipBlob: Blob): Promise<FileMap> {
   await zipReader.close();
 
   return fileMap;
+}
+
+function stripLeadingSlash(filename: string) {
+  if (filename.startsWith('/')) {
+    return filename.substring(1);
+  }
+
+  return filename;
 }

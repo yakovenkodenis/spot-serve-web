@@ -1,7 +1,6 @@
 // Modules
 import { type FC, useState, useCallback } from 'react';
 import styled from '@emotion/styled';
-// import { css } from '@emotion/react';
 
 // Components
 import { Button } from '@/components/button';
@@ -89,9 +88,9 @@ const PageContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   width: 100%;
   background: linear-gradient(120deg, #fdfbfb, #ebedee);
+  padding: 1rem;
 `;
 
 const ContentWrapper = styled.div`
@@ -100,15 +99,15 @@ const ContentWrapper = styled.div`
   align-items: center;
   width: 100%;
   max-width: 1200px;
-  padding: 0 2rem;
+  padding: 1rem;
   text-align: center;
 `;
 
 const HeaderText = styled.h1<{ error?: boolean }>`
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 300;
   color: #222;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   text-align: center;
   max-width: 80%;
   line-height: 1.5;
@@ -146,19 +145,31 @@ const HeaderText = styled.h1<{ error?: boolean }>`
       background-position: 100% 50%;
     }
   }
+
+  @media (max-width: 600px) {
+    font-size: 2rem;
+
+    span {
+      font-size: 3rem;
+    }
+  }
 `;
 
 const SubHeader = styled.h2`
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 300;
   color: #555;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+
+  @media (max-width: 600px) {
+    font-size: 1rem;
+  }
 `;
 
 const Features = styled.div`
   display: flex;
-  gap: 2rem;
-  margin: 3rem 0;
+  gap: 1rem;
+  margin: 2rem 0;
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
@@ -171,7 +182,7 @@ const FeatureCard = styled.div`
   padding: 1.5rem;
   text-align: center;
   width: 100%;
-  max-width: 300px;
+  max-width: 280px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
@@ -189,9 +200,17 @@ const FeatureCard = styled.div`
     font-size: 1rem;
     color: #555;
   }
+
+  @media (max-width: 600px) {
+    padding: 1rem;
+  }
 `;
 
 const Icon = styled.div`
   font-size: 2.5rem;
   color: #ff758c;
+
+  @media (max-width: 600px) {
+    font-size: 2rem;
+  }
 `;

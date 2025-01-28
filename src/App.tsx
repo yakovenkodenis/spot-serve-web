@@ -29,7 +29,19 @@ const AppContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   background: linear-gradient(120deg, #fdfbfb, #ebedee);
+  padding: 1rem;
   position: relative;
+
+  & > *:first-child {
+    flex-shrink: 0;
+  }
+
+  & > *:last-child {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;

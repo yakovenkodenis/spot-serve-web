@@ -60,6 +60,11 @@ const baseStyles = css`
     background: linear-gradient(135deg, #ddd, #bbb);
     cursor: not-allowed;
   }
+
+  @media (max-width: 600px) {
+    font-size: 1rem;
+    padding: 0.75rem 2rem;
+  }
 `;
 
 const loadingStyles = css`

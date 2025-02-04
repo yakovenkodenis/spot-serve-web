@@ -13,6 +13,7 @@ import { useQueryParam } from '@/hooks/use-query-param';
 
 // Services
 import { loadWebsiteZipFromBlob } from '@/services/load-website';
+import type { WebsiteZipArchiveResponse } from '@/services/peer-rpc/methods';
 
 export const Component: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,8 +26,19 @@ export const Component: FC = () => {
 
     setIsLoading(true);
     try {
-      const response = await rpc.request<Uint8Array>(rpcMethods.websiteZipArchive);
-      const indexHtml = await loadWebsiteZipFromBlob(new Blob([response]));
+      const response = await rpc.request<WebsiteZipArchiveResponse>(rpcMethods.websiteZipArchive);
+      const { backend, file, host, port, tunnel } = response;
+
+      if (backend && navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+          type: 'BACKEND',
+          host,
+          port,
+          tunnel,
+        });
+      }
+
+      const indexHtml = await loadWebsiteZipFromBlob(new Blob([file]));
 
       document.open();
       document.write(indexHtml);

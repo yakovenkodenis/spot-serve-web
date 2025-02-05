@@ -21,6 +21,7 @@ self.addEventListener('message', (event) => {
   const { type } = event.data ?? {};
 
   if (type === 'BACKEND') {
+    console.log('Received api setup from gui:', event.data);
     const { host, port, tunnel } = event.data;
     originalApiHost = host;
     originalApiPort = String(port);
@@ -29,10 +30,14 @@ self.addEventListener('message', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  console.group('Intercepted url');
+
   const url = new URL(event.request.url);
+  console.log(url, { apiHostname: url.hostname === originalApiHost, apiPort: String(url.port) === String(originalApiPort) });
 
   // if this is an api request
   if (url.hostname === originalApiHost && String(url.port) === String(originalApiPort)) {
+    console.log('Intercepting api', url)
     const newUrl = new URL(event.request.url);
     newUrl.hostname = replacementApiUrl.hostname;
     newUrl.port = replacementApiUrl.port;
@@ -55,9 +60,13 @@ self.addEventListener('fetch', (event) => {
 
     const modifiedRequest = new Request(newUrl.toString(), requestInit);
 
+    console.log('Modified request:', modifiedRequest);
+
     event.respondWith(fetch(modifiedRequest));
     return;
   }
+
+  console.groupEnd();
 
   // Ignore non-GET requests or requests outside the cached scope
   if (event.request.method !== 'GET') return;

@@ -47,6 +47,7 @@ self.addEventListener('fetch', (event) => {
     modifiedHeaders.set('bypass-tunnel-reminder', 'true');
 
     const requestInit = {
+      duplex: 'half',
       method: event.request.method,
       headers: modifiedHeaders,
       mode: event.request.mode,

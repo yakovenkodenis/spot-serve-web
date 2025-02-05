@@ -44,7 +44,7 @@ export class PeerRPC {
   private onDisconnectHandlers: Set<DisconnectionHandler> = new Set();
 
   constructor(options: PeerRPCOptions = {}) {
-    this.defaultTimeout = options.timeoutMs ?? 10000;
+    this.defaultTimeout = options.timeoutMs ?? 600_000; // 10 minutes
     this.debug = options.debug ?? false;
     this.peer = new Peer();
     this.setupPeer();

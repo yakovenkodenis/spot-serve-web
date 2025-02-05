@@ -62,6 +62,7 @@ self.addEventListener('fetch', (event) => {
     const modifiedRequest = new Request(newUrl.toString(), requestInit);
 
     console.log('Modified request:', modifiedRequest);
+    console.log('Modified request headers:', modifiedRequest.headers);
 
     event.respondWith(fetch(modifiedRequest));
     return;

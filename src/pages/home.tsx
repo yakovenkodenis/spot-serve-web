@@ -8,6 +8,9 @@ import { Button } from '@/components/button';
 // Context
 import { usePeerRpc } from '@/context/peer-rpc';
 
+// Helpers
+import { extractHostname } from '@/helpers/extract-hostname';
+
 // Hooks
 import { useQueryParam } from '@/hooks/use-query-param';
 
@@ -32,7 +35,7 @@ export const Component: FC = () => {
       if (backend && navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage({
           type: 'BACKEND',
-          host,
+          hostname: extractHostname(host),
           port,
           tunnel,
         });

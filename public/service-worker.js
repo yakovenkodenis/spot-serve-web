@@ -1,6 +1,6 @@
 const CACHE_NAME = 'website-cache';
 
-let originalApiHost;
+let originalApiHostname;
 let originalApiPort;
 
 /** @type {URL} */
@@ -22,8 +22,8 @@ self.addEventListener('message', (event) => {
 
   if (type === 'BACKEND') {
     console.log('Received api setup from gui:', event.data);
-    const { host, port, tunnel } = event.data;
-    originalApiHost = host;
+    const { hostname, port, tunnel } = event.data;
+    originalApiHostname = hostname;
     originalApiPort = String(port);
     replacementApiUrl = new URL(tunnel);
   }
@@ -33,11 +33,11 @@ self.addEventListener('fetch', (event) => {
   console.group('Intercepted url');
 
   const url = new URL(event.request.url);
-  console.log(url, { apiHostname: url.hostname === originalApiHost, apiPort: String(url.port) === String(originalApiPort) });
+  console.log(url, { apiHostname: url.hostname === originalApiHostname, apiPort: String(url.port) === String(originalApiPort) });
 
   // if this is an api request
-  if (url.hostname === originalApiHost && String(url.port) === String(originalApiPort)) {
-    console.log('Intercepting api', url)
+  if (url.hostname === originalApiHostname && String(url.port) === String(originalApiPort)) {
+    console.log('api request', url)
     const newUrl = new URL(event.request.url);
     newUrl.hostname = replacementApiUrl.hostname;
     newUrl.port = replacementApiUrl.port;

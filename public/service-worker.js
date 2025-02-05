@@ -63,7 +63,7 @@ self.addEventListener('fetch', (event) => {
 
     console.log('Modified request:', modifiedRequest);
 
-    event.respondWith(fetch(modifiedRequest));
+    event.respondWith(fetch(modifiedRequest, { mode: 'no-cors' }));
     return;
   }
 

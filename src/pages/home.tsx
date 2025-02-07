@@ -10,12 +10,13 @@ import { usePeerRpc } from '@/context/peer-rpc';
 
 // Helpers
 import { extractHostname } from '@/helpers/extract-hostname';
+import { getRefreshButtonScript } from '@/helpers/get-refresh-button-script';
 
 // Hooks
 import { useQueryParam } from '@/hooks/use-query-param';
 
 // Services
-import { loadWebsiteZipFromBlob } from '@/services/load-website';
+import { loadWebsiteZipFromBlob, cacheStoreName } from '@/services/load-website';
 import type { WebsiteZipArchiveResponse } from '@/services/peer-rpc/methods';
 
 export const Component: FC = () => {
@@ -42,16 +43,60 @@ export const Component: FC = () => {
       }
 
       const indexHtml = await loadWebsiteZipFromBlob(new Blob([file]));
+      const refreshButtonScript = getRefreshButtonScript({
+        cacheKey: cacheStoreName,
+        querystring: `?r=${remotePeerId}`,
+      });
 
       document.open();
       document.write(indexHtml);
       document.close();
+      document.head.appendChild(refreshButtonScript);
     } catch (error) {
       console.error('Error loading website:', error);
     } finally {
       setIsLoading(false);
     }
-  }, [rpc, rpcMethods.websiteZipArchive]);
+  }, [remotePeerId, rpc, rpcMethods.websiteZipArchive]);
+
+  // useEffect(() => {
+  //   if (!navigator.serviceWorker || !rpc) return;
+  
+  //   const controller = navigator.serviceWorker.controller;
+  //   if (!controller) return;
+  
+  //   const handleApiRequest = async (event: MessageEvent) => {
+  //     if (event.data.type === 'API_REQUEST') {
+  //       const { id, data } = event.data;
+  //       try {
+  //         // Forward request via WebRTC
+  //         const response = await rpc.request(rpcMethods.apiRequest, data);
+          
+  //         // Send response back to service worker
+  //         controller.postMessage({
+  //           type: 'API_RESPONSE',
+  //           id,
+  //           response: {
+  //             status: response.status,
+  //             headers: response.headers,
+  //             body: new Uint8Array(response.body).buffer,
+  //           },
+  //         });
+  //       } catch (error) {
+  //         controller.postMessage({
+  //           type: 'API_RESPONSE',
+  //           id,
+  //           error: error instanceof Error ? error.message : 'Request failed',
+  //         });
+  //       }
+  //     }
+  //   };
+  
+  //   navigator.serviceWorker.addEventListener('message', handleApiRequest);
+  //   return () => {
+  //     navigator.serviceWorker.removeEventListener('message', handleApiRequest);
+  //   };
+  // }, [rpc, rpcMethods.apiRequest]);
 
   const buttonDisabled = isLoading || !remotePeerId || !rpc;
 

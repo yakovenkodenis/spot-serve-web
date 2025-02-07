@@ -1,7 +1,7 @@
 import { unzip } from '@/helpers/unzip';
 import { cacheFiles } from '@/helpers/cache-files';
 
-const cacheStoreName = 'website-cache';
+export const cacheStoreName = 'website-cache';
 
 export async function loadWebsiteZipFromUrl(url: string): Promise<string> {  
   const response = await fetch(url);

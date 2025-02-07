@@ -34,6 +34,10 @@ export async function cacheFiles(files: FileMap, options: Options) {
       const url = new URL(filePath, location.origin).toString();
       const request = new Request(url, { cache: 'reload', headers });
       await cache.put(request, response);
+
+      if (url === '/index.html') {
+        await cache.put(new Request('/', { cache: 'reload', headers }), response);
+      }
     })
   );
 };

@@ -35,8 +35,8 @@ export async function cacheFiles(files: FileMap, options: Options) {
       const request = new Request(url, { cache: 'reload', headers });
       await cache.put(request, response);
 
-      if (url === '/index.html') {
-        await cache.put(new Request('/', { cache: 'reload', headers }), response);
+      if (url === `${location.origin}/index.html`) {
+        await cache.put(new Request(`${location.origin}/`, { cache: 'reload', headers }), new Response(blob, { headers }));
       }
     })
   );

@@ -9,7 +9,6 @@ import { Button } from '@/components/button';
 import { usePeerRpc } from '@/context/peer-rpc';
 
 // Helpers
-import { extractHostname } from '@/helpers/extract-hostname';
 import { getRefreshButtonScript } from '@/helpers/get-refresh-button-script';
 
 // Hooks
@@ -31,12 +30,11 @@ export const Component: FC = () => {
     setIsLoading(true);
     try {
       const response = await rpc.request<WebsiteZipArchiveResponse>(rpcMethods.websiteZipArchive);
-      const { backend, file, host, port, tunnel } = response;
+      const { backend, file, port, tunnel } = response;
 
       if (backend && navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage({
           type: 'BACKEND',
-          hostname: extractHostname(host),
           port,
           tunnel,
         });

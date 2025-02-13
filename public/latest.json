@@ -1,0 +1,23 @@
+{
+  "version": "0.1.0",
+  "notes": "See the assets to download this version and install.",
+  "pub_date": "2025-02-13T02:36:08.761Z",
+  "platforms": {
+    "darwin-aarch64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTcmtZQTBwZE9Zd2lhcGpDVm5reUNUcDdtWlFjM0cvUUkyOUxpMWxRZnVuUDdYRXpPV2lPSFRMbzB0TXJyYzZoUWFrS3VpbUhKVE1iVVZXN2srRFZZTFJpUFJ6RHZzZWdFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzM5NDEzNzc2CWZpbGU6U3BvdFNlcnZlLmFwcC50YXIuZ3oKMHZyaDBUaEFObDEyaXRJaXpseWhNMlBwYmJCOFNVbnh5dTgvMDAzVi8zbkR4dEhWeDE4UnV3WXNpY2Z2NTJqajdMemYxeFFxdTJ2cGVTR1hzRWRrQWc9PQo=",
+      "url": "https://github.com/explicit-logic/spot-serve-gui/releases/download/v0.1.0/SpotServe_aarch64.app.tar.gz"
+    },
+    "linux-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTcmtZQTBwZE9Zd25LblhKZVJ3blVBQWs1RzY3YUZSVXRMR04vUk8vTXQwSW15NXJ5c1VZQVZ6VmJPTEJCMk1ocGE3TXNrbzFOVk82K05HNXNaT2NNN0l0TEpWL2hrdlFjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzM5NDEzODEyCWZpbGU6U3BvdFNlcnZlXzAuMS4wX2FtZDY0LkFwcEltYWdlCmJzMEpVT2J3Yk9wWEZxU2VPS2NIWmN5LzZlR0UzNlJYNVZWOE1zN0NSa24wRXJCNXFxS1Fzdjk2ZTFKQitJYU1YRjVxamoxcHVWc0J6U3BwYyt3NEF3PT0K",
+      "url": "https://github.com/explicit-logic/spot-serve-gui/releases/download/v0.1.0/SpotServe_0.1.0_amd64.AppImage"
+    },
+    "darwin-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTcmtZQTBwZE9Zd2drUys2RFk5Wm5qQzNROE91S2FKUVRHZFg5dXY2VWozb0JLR1UyRlQyOFVzZmY5d0QvMkJiVG0rSU43Zm5xWm9tUkVpTXdLN0s3ZFMvQngvOTBWdHdjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzM5NDEzOTIwCWZpbGU6U3BvdFNlcnZlLmFwcC50YXIuZ3oKbHlUN3pFamdMTVFGaUt5eGIwNkd2TFpNb1diZ1hwbDdacFJBQjlUVFJUaXVaVTJPWHk5K3hNNDhCQkxUa1FCc3dQOUorcHB1ZitkVmVGSWRMWDBDQnc9PQo=",
+      "url": "https://github.com/explicit-logic/spot-serve-gui/releases/download/v0.1.0/SpotServe_x64.app.tar.gz"
+    },
+    "windows-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVTcmtZQTBwZE9Zd2thcU9rR3psSUw3UkN1VGhJUDU4bll5c1d0bEs4a25ReUhRd05YVFkxNlM1VWFnNDg4UFZGdzdXbTZWZU9YYy83VnIwL2F0WDFOZDhzdEVCTW1OdWdRPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzM5NDE0MTY1CWZpbGU6U3BvdFNlcnZlXzAuMS4wX3g2NF9lbi1VUy5tc2kKZlg5Ung2azZKWFpxd2hiM1ROWHNFNWlxVlNqaXpab25zbkoxcFNEaUgrNC9RSXNQMHUrb2k1ekltS0drRGI0dGFLYThzb0t4eG9XSngyODZldC82RGc9PQo=",
+      "url": "https://github.com/explicit-logic/spot-serve-gui/releases/download/v0.1.0/SpotServe_0.1.0_x64_en-US.msi"
+    }
+  }
+}

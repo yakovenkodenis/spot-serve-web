@@ -16,6 +16,7 @@ import { useQueryParam } from '@/hooks/use-query-param';
 
 // Services
 import { loadWebsiteZipFromBlob, cacheStoreName } from '@/services/load-website';
+import { Network } from '@/services/network';
 import type { WebsiteZipArchiveResponse } from '@/services/peer-rpc/methods';
 
 export const Component: FC = () => {
@@ -50,6 +51,10 @@ export const Component: FC = () => {
       document.write(indexHtml);
       document.close();
       document.head.appendChild(refreshButtonScript);
+
+      Network.intercept(/.*/, ({ url, api, method, requestData }) => {
+        console.log({ url, api, method, requestData });
+      });
     } catch (error) {
       console.error('Error loading website:', error);
     } finally {

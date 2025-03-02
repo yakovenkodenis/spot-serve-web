@@ -52,12 +52,19 @@ const AnimatedText = styled.span`
   left: 4rem;
   background: linear-gradient(135deg, #ff7eb3, #ff758c, #42a5f5);
   background-size: 200% 200%;
-  animation: 
-    typing 0.7s steps(10) forwards,
-    gradientAnimation 5s ease infinite alternate;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  
+
+  @media (min-width: 768px) {
+    animation: 
+      typing 0.7s steps(10) forwards,
+      gradientAnimation 5s ease infinite alternate;
+  }
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+
   &::after {
     content: '';
     position: absolute;
@@ -66,7 +73,9 @@ const AnimatedText = styled.span`
     height: 100%;
     width: 2px;
     background-color: #555;
-    animation: blink 0.8s step-end infinite;
+    @media (min-width: 768px) {
+      animation: blink 0.8s step-end infinite;
+    }
   }
 
   @keyframes typing {
@@ -74,7 +83,7 @@ const AnimatedText = styled.span`
       width: 0;
     }
     to {
-      width: 6.5rem; /* Adjust this value based on your text length */
+      width: 6.5rem;
     }
   }
 

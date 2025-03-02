@@ -3,7 +3,7 @@ import { type FC, useState, useCallback } from 'react';
 import { NavLink } from 'react-router';
 import styled from '@emotion/styled';
 import { type HTMLMotionProps, motion, AnimatePresence } from 'motion/react';
-import clsx from 'clsx'
+import clsx from 'clsx';
 
 // Components
 import { Logo } from '@/components/logo';
@@ -45,7 +45,9 @@ export const Header: FC = () => {
 
   return (
     <TransparentHeader>
-      <Logo />
+      <div>
+        <Logo />
+      </div>
       <HamburgerButton onClick={toggleMenu} className={clsx({ open: menuOpen })}>
         <span />
         <span />
@@ -77,6 +79,10 @@ const TransparentHeader = styled.div`
   width: 100%;
   background: transparent;
   z-index: 1000;
+
+  @media (max-width: 600px) {
+    position: static;
+  }
 `;
 
 const NavList = styled.nav`
@@ -150,6 +156,8 @@ const HamburgerButton = styled.button`
 
   @media (max-width: 600px) {
     display: block;
+    position: fixed;
+    right: 2rem;
   }
 `;
 
